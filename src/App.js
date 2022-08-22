@@ -1,5 +1,8 @@
 import { useState } from "react";
 import Card from "./components/Card";
+import { Helmet } from 'react-helmet';
+
+
 
 const data = [
   {
@@ -65,41 +68,59 @@ const data = [
   },
 ];
 
+
 function App() {
-  const [basket, setBasket] = useState([]);
+
+  const [basket, setBasket] = useState([])
 
   const handleAddToBasket = (id) => {
-    let copy = [...basket];
-    copy.push(data.find((item) => item.id === id));
-    setBasket(copy);
-  };
+    let copy = [...basket]
+    copy.push(data.find(item => item.id === id))
+    setBasket(copy)
+  }
 
   return (
     <div className="container">
+      <Helmet>
+
+        <title>Super product list</title>
+        <meta http-equiv="content-language" content="en" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="Fjallraven , Foldsack, Backpack,  Laptops,jacket, bag,Solid, Gold, Petite, Micropave" />
+        <meta name="author" content="Ali" />
+        <meta name="publisher" content="Ali" />
+        <meta name="copyright" content="Ali" />
+        <meta name="description" content="Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday" />
+        <meta name="page-topic" content="Media" />
+        <meta name="page-type" content="Blogging" />
+        <meta name="audience" content="Everyone" />
+        <meta name="robots" content="index, follow" />
+
+      </Helmet>
+
+
+
+
       <h1 className="text-center p-2 m-2">Super product list</h1>
       <main className="row">
-        {data.map((item) => (
+        {data.map(item =>
           <div className="col-12 col-md-6 col-lg-4">
             <Card {...item} handleAddToBasket={handleAddToBasket} />
           </div>
-        ))}
+        )}
       </main>
 
       <div className="d-flex flex-column align-items-center mt-4">
         <h2>WishList</h2>
-        {basket.map((item) => (
+        {basket.map(item =>
           <p className="m-2">{item.title}</p>
-        ))}
-        <div className="d-flex">
+        )}
+        <section className="d-flex">
           <h4 className="fw-bolder">Total Price:</h4>
-          <h4 className="fw-bolder">
-            {basket.reduce(
-              (previousValue, currentValue) =>
-                previousValue + currentValue.price - currentValue.discount,
-              0
-            )}
-          </h4>
-        </div>
+          <h4 className="fw-bolder">{basket.reduce((previousValue, currentValue) => previousValue + currentValue.price - currentValue.discount, 0)}</h4>
+        </section>
+
       </div>
     </div>
   );
